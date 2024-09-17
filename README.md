@@ -22,6 +22,7 @@ sudo apt install stow
 
 ## Installation
 
+In the $HOME folder
 
 ```bash
 $ git clone https://github.com/RodrigoAroeira/.dotfiles.git
@@ -32,8 +33,9 @@ $ gh repo clone RodrigoAroeira/.dotfiles
 ```
 
 And then
+
 ```bash
-$ cd dotfiles
+$ cd .dotfiles
 ```
 
 Now, inside the folder, run
