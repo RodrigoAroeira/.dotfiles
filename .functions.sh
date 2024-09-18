@@ -1,7 +1,7 @@
 function mkdev() {
   name=$1
   path=~/Dev/$name
-  mkdir $path && cd $path
+  mkdir "$path" && cd "$path" || return
 }
 
 export mkdev
@@ -9,13 +9,13 @@ export mkdev
 function devdir() {
   folder=$1
   path=~/Dev/$folder
-  cd $path
+  cd "$path" || return
 }
 
 _devdir() {
-  local cur prev words cword
+  local cur # prev words cword
   _init_completion || return
-  local completions=($(cd ~/Dev/ && compgen -o dirnames -- "$cur"))
+  local completions=("$(cd ~/Dev/ && compgen -o dirnames -- "$cur")")
   if [[ ${#completions[@]} -gt 0 ]]; then
     COMPREPLY=("${completions[@]}/")
   fi
@@ -26,12 +26,14 @@ complete -o nospace -F _devdir devdir
 export devdir="$HOME/Dev/"
 
 function findProcess() {
-  ps -eaf | grep $1
+  ps -eaf | grep "$1"
 }
 
 function virtualenv() {
   # If no argument is provided
   createdNow=false
+  local env_folder
+
   if [ -z "$1" ]; then
     # Check if either "venv" or ".venv" exists and store in a variable
     if [ -d "venv" ]; then
@@ -43,7 +45,6 @@ function virtualenv() {
       return 1
     fi
   else
-    # If an argument is provided, use it as the environment name
     env_folder="$1"
 
     # If the directory doesn't exist, create the environment
