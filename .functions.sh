@@ -13,9 +13,9 @@ function devdir() {
 }
 
 _devdir() {
-  local cur # prev words cword
+  local cur prev words cword
   _init_completion || return
-  local completions=("$(cd ~/Dev/ && compgen -o dirnames -- "$cur")")
+  local completions=($(cd ~/Dev/ && compgen -o dirnames -- "$cur"))
   if [[ ${#completions[@]} -gt 0 ]]; then
     COMPREPLY=("${completions[@]}/")
   fi
