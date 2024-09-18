@@ -64,3 +64,77 @@ function virtualenv() {
   fi
 
 }
+
+#helper function
+function _create_directory_if_needed() {
+  local dir="$1"
+  if [ ! -d "$dir" ]; then
+    mkdir -p "$dir"
+  fi
+}
+
+function _setup_daily_readme() {
+  local file_path="$1"
+  if [ ! -f "$file_path" ]; then
+    echo -e "TODAY'S TASK: \n" >"$file_path"
+    echo -e "STARTING: \n" >>"$file_path"
+    echo -e "ENDED: \n" >>"$file_path"
+  fi
+}
+
+daily_folder="$devdir"/"CurrentDaily"
+daily_repo="$devdir"/DailyChallenges
+
+function start-daily() {
+  if [ "$DAILY_CHALLENGE_STARTED" = true ]; then
+    echo "Daily Challenge already started."
+    cd "$daily_folder"
+    return
+  fi
+  file=README.md
+  _create_directory_if_needed "$daily_folder"
+  cd "$daily_folder" || (return && echo "Something went wrong")
+
+  _setup_daily_readme "$file"
+
+  export DAILY_CHALLENGE_STARTED=true
+}
+
+function cancel-daily() {
+  if [ -z "$DAILY_CHALLENGE_STARTED" ]; then
+    echo "Daily challenge not yet started."
+    return 1
+  fi
+
+  rm -rf "$daily_folder"
+  echo "Daily challenge canceled"
+  unset DAILY_CHALLENGE_STARTED
+  cd "$HOME" || (return && echo "Something went wrong")
+}
+
+function end-daily() {
+
+  if [ -z "$DAILY_CHALLENGE_STARTED" ]; then
+    echo "Daily challenge not yet started."
+    return 1
+  fi
+
+  if [ $# -eq 0 ]; then
+    echo "Usage: end-daily <devdir>"
+    return 1
+  fi
+
+  local folder_in_repo="$daily_repo/$1"
+
+  _create_directory_if_needed "$folder_in_repo"
+
+  if [ -n "$(find "$folder_in_repo" -mindepth 1 -print -quit)" ]; then
+    echo "Folder exists and is not empty"
+    return 1
+  fi
+
+  mv "$daily_folder"/* "$folder_in_repo"
+  rm -r "$daily_folder"
+
+  unset DAILY_CHALLENGE_STARTED
+}
