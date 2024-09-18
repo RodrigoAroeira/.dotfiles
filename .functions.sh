@@ -23,7 +23,7 @@ _devdir() {
 
 complete -o nospace -F _devdir devdir
 
-export devdir
+export devdir="$HOME/Dev/"
 
 function findProcess() {
   ps -eaf | grep $1
