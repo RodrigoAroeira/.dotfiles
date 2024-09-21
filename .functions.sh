@@ -4,11 +4,9 @@ function mkdev() {
   mkdir "$path" && cd "$path" || return
 }
 
-export mkdev
-
 function devdir() {
-  folder=$1
-  path=~/Dev/$folder
+  local folder=$1
+  local path=~/Dev/"$folder"
   cd "$path" || return
 }
 
@@ -25,9 +23,6 @@ complete -o nospace -F _devdir devdir
 
 export devdir="$HOME/Dev/"
 
-function findProcess() {
-  ps -eaf | grep "$1"
-}
 
 function virtualenv() {
   # If no argument is provided
@@ -75,10 +70,11 @@ function _create_directory_if_needed() {
 
 function _setup_daily_readme() {
   local file_path="$1"
+  local challenge="$2"
   if [ ! -f "$file_path" ]; then
-    echo -e "TODAY'S TASK: \n" >"$file_path"
-    echo -e "STARTING: \n" >>"$file_path"
-    echo -e "ENDED: \n" >>"$file_path"
+    echo -e "TODAY'S TASK: $2\n" >"$file_path"
+    echo -e "STARTING:\n" >>"$file_path"
+    echo -e "ENDED:\n" >>"$file_path"
   fi
 }
 
@@ -91,11 +87,12 @@ function start-daily() {
     cd "$daily_folder"
     return
   fi
-  file=README.md
+  local file=README.md
+  local challenge="$1"
   _create_directory_if_needed "$daily_folder"
   cd "$daily_folder" || (return && echo "Something went wrong")
 
-  _setup_daily_readme "$file"
+  _setup_daily_readme "$file" "$challenge"
 
   export DAILY_CHALLENGE_STARTED=true
 }
