@@ -23,41 +23,36 @@ complete -o nospace -F _devdir devdir
 
 export devdir="$HOME/Dev/"
 
-
 function virtualenv() {
-  # If no argument is provided
-  createdNow=false
-  local env_folder
+  local env_folder="$1"
+  local createdNow=false
 
-  if [ -z "$1" ]; then
-    # Check if either "venv" or ".venv" exists and store in a variable
-    if [ -d "venv" ]; then
-      env_folder="venv"
-    elif [ -d ".venv" ]; then
+  # If no argument is provided, check for existing environments
+  if [ -z "$env_folder" ]; then
+    if [ -d ".venv" ]; then
       env_folder=".venv"
+    elif [ -d "venv" ]; then
+      env_folder="venv"
     else
-      echo "Usage: virtualenv <env_name>"
+      echo "Usage: ${FUNCNAME[0]} <env_name>"
       return 1
     fi
-  else
-    env_folder="$1"
+  fi
 
-    # If the directory doesn't exist, create the environment
-    if [ ! -d "$env_folder" ]; then
-      python -m venv "$env_folder"
-      createdNow=true
-    fi
+  # Create the virtual environment if it doesn't exist
+  if [ ! -d "$env_folder" ]; then
+    python -m venv "$env_folder"
+    createdNow=true
   fi
 
   # Activate the virtual environment
   source "$env_folder/bin/activate"
 
-  # Check for requirements.txt
-  if [ "$createdNow" = true ] && [ -e "requirements.txt" ]; then
-    echo "Automatically installing requirements.txt, please wait"
-    pip install -r requirements.txt --require-virtualenv # &
+  # Automatically install requirements if the environment was just created
+  if $createdNow && [ -f "requirements.txt" ]; then
+    echo "Automatically installing requirements.txt, please wait..."
+    pip install -r requirements.txt --require-virtualenv
   fi
-
 }
 
 #helper function
