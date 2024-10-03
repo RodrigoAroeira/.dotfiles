@@ -22,9 +22,11 @@ alias tuiuiu='ssh rodrigo-aroeira@tuiuiu.fisica.ufmg.br'
 
 alias kagome='ssh rodrigo@150.164.14.134'
 
-alias lcc01='ssh rodrigo-aroeira@ia01.LCC.ufmg.br'
+alias ia01='ssh rodrigo-aroeira@ia01.LCC.ufmg.br'
+export ia01="ia01.LCC.ufmg.br"
 
-alias lcc02='ssh rodrigo-aroeira@ia02.LCC.ufmg.br'
+alias ia02='ssh rodrigo-aroeira@ia02.LCC.ufmg.br'
+export ia02="ia02.LCC.ufmg.br"
 
 alias dotf='cd ~/.dotfiles/'
 
@@ -33,5 +35,7 @@ source ~/.functions.sh
 alias gal='alias | grep'
 
 alias fp='ps -eaf | grep'
+
+alias ssh="kitten ssh"
 
 bind '"\C-l":"clear\n"'
