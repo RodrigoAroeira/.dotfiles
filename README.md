@@ -1,5 +1,6 @@
-## Requirements
+# .dotfiles
 
+## Requirements
 
 ### Git or GitHub CLI
 
@@ -13,7 +14,6 @@ or
 sudo apt install gh
 ```
 
-
 ### Stow
 
 ```bash
@@ -25,21 +25,23 @@ sudo apt install stow
 In the $HOME folder
 
 ```bash
-$ git clone https://github.com/RodrigoAroeira/.dotfiles.git
+git clone https://github.com/RodrigoAroeira/.dotfiles.git
 ```
+
 or
+
 ```bash
-$ gh repo clone RodrigoAroeira/.dotfiles
+gh repo clone RodrigoAroeira/.dotfiles
 ```
 
 And then
 
 ```bash
-$ cd .dotfiles
+cd .dotfiles
 ```
 
 Now, inside the folder, run
 
 ```bash
-$ stow .
+stow .
 ```
