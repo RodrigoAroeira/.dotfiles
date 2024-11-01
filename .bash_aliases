@@ -21,6 +21,7 @@ alias pipe="echo -n '|' | xclip -sel clip"
 alias tuiuiu='ssh rodrigo-aroeira@tuiuiu.fisica.ufmg.br'
 
 alias kagome='ssh rodrigo@150.164.14.134'
+export kagome="150.164.14.134"
 
 alias ia01='ssh rodrigo-aroeira@ia01.LCC.ufmg.br'
 export ia01="ia01.LCC.ufmg.br"
@@ -37,5 +38,7 @@ alias gal='alias | grep'
 alias fp='ps -eaf | grep'
 
 alias ssh="kitten ssh"
+
+alias vim="nvim --clean"
 
 bind '"\C-l":"clear\n"'
