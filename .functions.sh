@@ -169,7 +169,7 @@ OUT = $projectName
 CXXFLAGS = -I\$(HEADER_DIR) -O3 -std=\$(STD)
 
 build:
-$(tab)\$(CXX) \$(SRC_FILES) \$(CPPFLAGS) -o \$(OUT)
+$(tab)\$(CXX) \$(SRC_FILES) \$(CXXFLAGS) -o \$(OUT)
 
 run:
 $(tab)./\$(OUT)
