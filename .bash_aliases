@@ -31,6 +31,8 @@ export ia02="ia02.LCC.ufmg.br"
 
 alias dotf='cd ~/.dotfiles/'
 
+alias dotfn='dotf && cd .config/nvim'
+
 source ~/.functions.sh
 
 alias gal='alias | grep'
