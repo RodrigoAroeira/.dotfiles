@@ -43,7 +43,7 @@ function virtualenv() {
 
   # Create the virtual environment if it doesn't exist
   if [ ! -d "$env_folder" ]; then
-    python -m venv "$env_folder"
+    python3 -m venv "$env_folder"
     createdNow=true
   fi
 
