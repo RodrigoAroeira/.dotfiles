@@ -211,3 +211,8 @@ WORKING_DIRECTORY \${CMAKE_PROJECT_DIR}
 )
 EOF
 }
+
+function setupProject() {
+  mkdir headers && echo "Created \`./headers/\` directory"
+  mkdir src && echo "Created \`./src/\` directory"
+}
