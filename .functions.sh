@@ -201,8 +201,6 @@ file(GLOB SRC_FILES "\${SRC_DIR}/*.cpp")
 add_executable(\${PROJECT_NAME} \${SRC_FILES})
 
 target_include_directories(\${PROJECT_NAME} PRIVATE headers includes/usr/include)
-target_compile_options(\${PROJECT_NAME} PRIVATE -O3)
-
 
 add_custom_target(run
 COMMAND \${PROJECT_NAME}
