@@ -79,7 +79,7 @@ daily_folder="$devdir"/"CurrentDaily"
 daily_repo="$devdir"/DailyChallenges
 
 function start-daily() {
-  if [ "$DAILY_CHALLENGE_STARTED" = true ]; then
+  if [ -d "$daily_folder" ]; then
     echo "Daily Challenge already started."
     cd "$daily_folder" || return
     return
@@ -91,24 +91,21 @@ function start-daily() {
 
   _setup_daily_readme "$file" "$challenge"
 
-  export DAILY_CHALLENGE_STARTED=true
 }
 
 function cancel-daily() {
-  if [ -z "$DAILY_CHALLENGE_STARTED" ]; then
+  if [ ! -d "$daily_folder" ]; then
     echo "Daily challenge not yet started."
     return 1
   fi
-
   rm -rf "$daily_folder"
   echo "Daily challenge canceled"
-  unset DAILY_CHALLENGE_STARTED
   cd "$HOME" || (return && echo "Something went wrong")
 }
 
 function end-daily() {
 
-  if [ -z "$DAILY_CHALLENGE_STARTED" ]; then
+  if [ ! -d "$daily_folder" ]; then
     echo "Daily challenge not yet started."
     return 1
   fi
