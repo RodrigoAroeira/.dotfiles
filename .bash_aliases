@@ -10,6 +10,8 @@ alias va='nvim ~/.bashrc && source ~/.bashrc && echo "Updated .bashrc" '
 
 alias vf='nvim ~/.functions.sh && source ~/.functions.sh && echo "Updated Functions" '
 
+alias vb='nvim ~/.bash_aliases && source ~/.bash_aliases && echo "Updated Aliases" '
+
 alias tree='tree -L 2'
 
 alias clr="PS1='$ '"
@@ -42,5 +44,3 @@ alias fp='ps -eaf | grep'
 alias ssh="kitten ssh"
 
 alias vim="nvim --clean"
-
-bind '"\C-l":"clear\n"'
