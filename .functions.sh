@@ -1,13 +1,13 @@
 function mkdev() {
-  name=$1
-  path=~/Dev/$name
-  mkdir "$path" && cd "$path" || return
+  local name=$1
+  local target=~/Dev/"$name"
+  mkdir "$target" && cd "$target" || return
 }
 
 function devdir() {
   local folder=$1
-  local path=~/Dev/"$folder"
-  cd "$path" || return
+  local target=~/Dev/"$folder"
+  cd "$target" || return
 }
 
 function virtualenv() {
