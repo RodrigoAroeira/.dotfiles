@@ -8,10 +8,9 @@ _devdir() {
     search_dir="$base_dir"
   fi
 
-  # Find directories and strip the base path
   local folders=()
   if [[ -d $search_dir ]]; then
-    folders=($(find "$search_dir" -maxdepth 1 -type d | sed "s|^$base_dir/||"))
+    folders=($(find "$search_dir" -maxdepth 1 -type d -not -path "$base_dir" | sed "s|^$base_dir/||"))
   fi
 
   compadd -Q -S '/' -- "${folders[@]}"
