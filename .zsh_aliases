@@ -1,7 +1,8 @@
 alias src='source ~/.zshrc'
 
-alias va='nvim ~/.zshrc && src && echo "Updated .zshrc" '
+alias vrc='nvim ~/.zshrc && src && echo "Updated .zshrc" '
+
+alias va='nvim ~/.zsh_aliases && src && echo "Updated ZSH Aliases" '
 
 alias vf='nvim ~/.functions.zsh && source ~/.functions.zsh && echo "Updated Functions" '
 
-alias vb='nvim ~/.zsh_aliases && source ~/.zsh_aliases && echo "Updated Aliases" '
