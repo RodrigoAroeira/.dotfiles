@@ -28,7 +28,7 @@ function virtualenv() {
 
   # Create the virtual environment if it doesn't exist
   if [ ! -d "$env_folder" ]; then
-    python3 -m venv "$env_folder"
+    uv venv "$env_folder" --seed
     createdNow=true
   fi
 
@@ -38,7 +38,7 @@ function virtualenv() {
   # Automatically install requirements if the environment was just created
   if $createdNow && [ -f "requirements.txt" ]; then
     echo "Automatically installing requirements.txt, please wait..."
-    pip install -r requirements.txt --require-virtualenv
+    uv pip install -r requirements.txt || pip install -r requirements.txt --require-virtualenv
   fi
 }
 
