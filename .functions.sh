@@ -21,7 +21,7 @@ function virtualenv() {
     elif [ -d "venv" ]; then
       env_folder="venv"
     else
-      echo "Usage: ${FUNCNAME[0]} <env_name>"
+      echo "Usage: $0 <env_name>" 1>&2
       return 1
     fi
   fi
@@ -105,7 +105,7 @@ function end-daily() {
   _create_directory_if_needed "$folder_in_repo"
 
   if [ -n "$(find "$folder_in_repo" -mindepth 1 -print -quit)" ]; then
-    echo "Folder exists and is not empty"
+    echo "Folder '$folder_in_repo' exists and is not empty"
     return 1
   fi
 
