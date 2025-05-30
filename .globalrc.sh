@@ -41,10 +41,6 @@ alias gal='alias | grep'
 
 alias fp='ps -eaf | grep'
 
-alias ssh="kitten ssh"
-
-alias vim="nvim --clean"
-
 alias vag='nvim "$HOME"/.globalrc.sh && src && echo "Updated Global Aliases" '
 
 alias vfg='nvim "$HOME"/.functions.sh && src && echo "Updated Global Functions" '
