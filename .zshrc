@@ -107,3 +107,4 @@ source ~/.globalrc.sh
 source ~/.zsh_aliases
 
 export SHELL=$(which zsh)
+export HISTCONTROL=ignoreboth
