@@ -5,4 +5,5 @@ return {
   { "folke/tokyonight.nvim" },
   { "Mofiqul/vscode.nvim" },
   { "shaunsingh/nord.nvim" },
+  { "neanias/everforest-nvim" },
 }
