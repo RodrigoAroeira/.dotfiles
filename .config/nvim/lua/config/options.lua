@@ -4,4 +4,4 @@
 
 vim.g.snacks_animate = false
 vim.opt.ls = 2
--- vim.opt.statusline = "%F"
+vim.o.ruler = true
