@@ -22,17 +22,6 @@ alias clr="PS1='$ '"
 
 alias pipe="echo -n '|' | xclip -sel clip"
 
-alias tuiuiu='ssh rodrigo-aroeira@tuiuiu.fisica.ufmg.br'
-
-alias kagome='ssh rodrigo@150.164.14.134'
-export kagome="150.164.14.134"
-
-alias ia01='ssh rodrigo-aroeira@ia01.LCC.ufmg.br'
-export ia01="ia01.LCC.ufmg.br"
-
-alias ia02='ssh rodrigo-aroeira@ia02.LCC.ufmg.br'
-export ia02="ia02.LCC.ufmg.br"
-
 alias dotf='cd "$HOME"/.dotfiles/'
 
 alias dotfn='dotf && cd .config/nvim'
