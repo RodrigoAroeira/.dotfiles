@@ -22,6 +22,8 @@ map("n", "<Leader>bw", "<Cmd>bw<CR>", create_opts({ desc = "Buff wipe" }))
 map({ "n", "i" }, "<C-s>", "<ESC><Cmd>w<CR>", create_opts())
 map("n", "<Leader>st", "<Cmd>hor term<CR><C-w>x<C-w>j", create_opts())
 map("n", "<Leader>vt", "<Cmd>vert term<CR>", create_opts())
+map("n", "<Leader>t", "<Cmd>term<CR>", create_opts())
+map("n", "<Leader>pv", "<Cmd>Ex<CR>", create_opts())
 map({ "n", "i", "v" }, "<Esc>", function()
   vim.cmd.nohlsearch() -- Clear search highlights
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
