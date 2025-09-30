@@ -25,13 +25,13 @@ sudo apt install stow
 In the $HOME folder
 
 ```bash
-git clone https://github.com/RodrigoAroeira/.dotfiles.git
+git clone https://github.com/RodrigoAroeira/.dotfiles.git --recurse-submodules
 ```
 
 or
 
 ```bash
-gh repo clone RodrigoAroeira/.dotfiles
+gh repo clone RodrigoAroeira/.dotfiles -- --recurse-submodules
 ```
 
 And then
