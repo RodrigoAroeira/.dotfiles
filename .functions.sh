@@ -196,3 +196,73 @@ function setupProject() {
   mkdir headers && echo "Created \`./headers/\` directory"
   mkdir src && echo "Created \`./src/\` directory"
 }
+
+QUEUE_PATH="/tmp/queue.sh"
+
+function queue() {
+
+  case "$1" in
+  "")
+    echo "Usage: queue <command> [args...]"
+    echo "       queue --list"
+    echo "       queue --clear"
+    echo "       queue --path"
+    return 1
+    ;;
+  --list)
+    echo "Queued commands:"
+    if [[ ! -f $QUEUE_PATH ]]; then
+      echo "(empty)"
+    else
+      local show_cmd
+      if command -v bat &>/dev/null; then
+        show_cmd="bat -p"
+      else
+        show_cmd="tail -n +2"
+      fi
+      eval "$show_cmd" "$QUEUE_PATH"
+    fi
+    return
+    ;;
+  --clear)
+    rm -f "$QUEUE_PATH" && echo "Queue cleared."
+    return
+    ;;
+  --path)
+    echo "$QUEUE_PATH"
+    return
+    ;;
+  esac
+  if [[ ! -f "$QUEUE_PATH" ]]; then
+    echo "#!/usr/bin/env bash" >"$QUEUE_PATH"
+    chmod +x "$QUEUE_PATH"
+  fi
+
+  local buf=""
+  for arg in "$@"; do
+    if [[ "$arg" == "--" ]]; then
+      [[ -n "$buf" ]] && printf '%s\n' "$buf" >>"$QUEUE_PATH"
+      buf=""
+    else
+      buf+="$arg "
+    fi
+  done
+
+  [[ -n "$buf" ]] && printf '%s\n' "$buf" >>"$QUEUE_PATH"
+}
+
+function run-queue() {
+  if [[ ! -f "$QUEUE_PATH" ]]; then
+    echo "No commands in queue."
+    return 1
+  fi
+
+  echo "Running queued commands from $QUEUE_PATH..."
+
+  source "$QUEUE_PATH"
+
+  if [[ "$1" == "-d" || "$1" == "--delete" ]]; then
+    rm -f "$QUEUE_PATH"
+    echo "Queue cleared."
+  fi
+}
