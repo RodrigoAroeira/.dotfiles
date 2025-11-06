@@ -28,7 +28,17 @@ function virtualenv() {
 
   # Create the virtual environment if it doesn't exist
   if [ ! -d "$env_folder" ]; then
-    uv venv "$env_folder" --seed
+    if command -v uv &>/dev/null; then
+      uv venv "$env_folder" --seed || {
+        echo "Failed to create venv using uv"
+        return 1
+      }
+    else
+      python3 -m venv "$env_folder" || {
+        echo "Failed to create venv using python3 -m venv"
+        return 1
+      }
+    fi
     createdNow=true
   fi
 
