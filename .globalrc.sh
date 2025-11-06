@@ -2,6 +2,8 @@ export devdir="$HOME/Dev"
 
 source "$HOME"/.functions.sh
 
+[[ -f "$HOME/.secret.sh" ]] && source "$HOME/.secret.sh"
+
 if [ -n "$ZSH_VERSION" ]; then
   source "$HOME"/.functions.zsh
 elif [ -n "$BASH_VERSION" ]; then
