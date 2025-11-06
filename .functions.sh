@@ -293,11 +293,34 @@ function run-queue() {
   fi
 
   echo "Running queued commands from $QUEUE_PATH..."
+  local isolate=false
+  local should_delete=false
+  for arg in "$@"; do
+    case "$arg" in
+    -d | --delete)
+      should_delete=true
+      ;;
+    -i | --isolate)
+      isolate=true
+      ;;
+    esac
+  done
 
-  source "$QUEUE_PATH"
+  local has_err=false
+  if $isolate; then
+    bash "$QUEUE_PATH" || has_err=true
+  else
+    source "$QUEUE_PATH" || has_err=true
+  fi
 
-  if [[ "$1" == "-d" || "$1" == "--delete" ]]; then
+  if $should_delete; then
     rm -f "$QUEUE_PATH"
     echo "Queue cleared."
+  fi
+
+  if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    return $has_err # If sourced, return the error code
+  else
+    exit $has_err # If executed, exit with the error code
   fi
 }
