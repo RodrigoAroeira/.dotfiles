@@ -210,14 +210,25 @@ function setupProject() {
 QUEUE_PATH="/tmp/queue.sh"
 
 function queue() {
+  local usage="$(
+    cat <<'EOF'
+Usage: queue [args...]
+       queue --help
+       queue --list
+       queue --clear
+       queue --path
+       queue --run
+EOF
+  )"
 
   case "$1" in
   "")
-    echo "Usage: queue <command> [args...]"
-    echo "       queue --list"
-    echo "       queue --clear"
-    echo "       queue --path"
+    echo "$usage"
     return 1
+    ;;
+  --help)
+    echo "$usage"
+    return
     ;;
   --list)
     echo "Queued commands:"
@@ -242,14 +253,23 @@ function queue() {
     echo "$QUEUE_PATH"
     return
     ;;
+  --run)
+    run-queue
+    return
+    ;;
   esac
   if [[ ! -f "$QUEUE_PATH" ]]; then
     echo "#!/usr/bin/env bash" >"$QUEUE_PATH"
     chmod +x "$QUEUE_PATH"
   fi
 
+  local bad_args=()
   local buf=""
   for arg in "$@"; do
+    if [[ "$arg" == *"--"* && "$arg" == *" "* ]]; then
+      bad_args+=("$arg")
+    fi
+
     if [[ "$arg" == "--" ]]; then
       [[ -n "$buf" ]] && printf '%s\n' "$buf" >>"$QUEUE_PATH"
       buf=""
@@ -259,6 +279,11 @@ function queue() {
   done
 
   [[ -n "$buf" ]] && printf '%s\n' "$buf" >>"$QUEUE_PATH"
+
+  if ((${#bad_args[@]} > 0)); then
+    echo "warning: possible quoted command groups detected; '--' may not be parsed correctly" >&2
+    printf '  problematic args: %s\n' "${bad_args[@]}" >&2
+  fi
 }
 
 function run-queue() {
