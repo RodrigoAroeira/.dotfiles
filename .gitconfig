@@ -7,3 +7,5 @@
 [user]
 	email = raroeirabr@gmail.com
 	name = RodrigoAroeira
+[init]
+	defaultBranch = main
